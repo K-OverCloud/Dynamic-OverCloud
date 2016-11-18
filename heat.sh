@@ -6,9 +6,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-M_IP=10.10.10.51
-C_IP=192.168.88.51
-D_IP=10.10.20.51
+M_IP=10.10.1.4
+C_IP=10.10.10.11
+D_IP=10.10.20.7
 #RABBIT_PASS=secrete
 PASSWORD=PASS
 #ADMIN_TOKEN=ADMIN
@@ -45,7 +45,7 @@ openstack service create --name heat-cfn \
 
 #4.Create the Orchestration service API endpoints:
 openstack endpoint create --region RegionOne \
-  orchestration public http://$C_IP:8004/v1/%\(tenant_id\)s
+  orchestration public http://$M_IP:8004/v1/%\(tenant_id\)s
 
 openstack endpoint create --region RegionOne \
   orchestration internal http://$C_IP:8004/v1/%\(tenant_id\)s

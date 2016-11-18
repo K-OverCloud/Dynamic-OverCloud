@@ -6,9 +6,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-M_IP=10.10.10.51
-C_IP=192.168.88.51
-D_IP=10.10.20.51
+M_IP=10.10.1.4
+C_IP=10.10.10.11
+D_IP=10.10.20.7
 #RABBIT_PASS=secrete
 PASSWORD=PASS
 #ADMIN_TOKEN=ADMIN
@@ -42,7 +42,7 @@ openstack service create --name glance \
 
 #4.Create the Image service API endpoints:
 openstack endpoint create --region RegionOne \
-  image public http://$C_IP:9292
+  image public http://$M_IP:9292
 
 openstack endpoint create --region RegionOne \
   image internal http://$C_IP:9292

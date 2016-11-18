@@ -6,9 +6,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-M_IP=10.10.10.51
-C_IP=192.168.88.51
-D_IP=10.10.20.51
+M_IP=10.10.1.4
+C_IP=10.10.10.11
+D_IP=10.10.20.7
 #RABBIT_PASS=secrete
 PASSWORD=PASS
 #ADMIN_TOKEN=ADMIN
@@ -58,7 +58,7 @@ keystone-manage credential_setup --keystone-user keystone --keystone-group keyst
 keystone-manage bootstrap --bootstrap-password $PASSWORD \
   --bootstrap-admin-url http://$C_IP:35357/v3/ \
   --bootstrap-internal-url http://$C_IP:35357/v3/ \
-  --bootstrap-public-url http://$C_IP:5000/v3/ \
+  --bootstrap-public-url http://$M_IP:5000/v3/ \
   --bootstrap-region-id RegionOne
 
 #1.Restart the Apache service and remove the default SQLite database:

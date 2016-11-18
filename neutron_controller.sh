@@ -7,8 +7,8 @@ fi
 
 
 M_IP=10.10.10.51
-C_IP=192.168.88.51
-D_IP=10.10.20.51
+C_IP=10.10.20.200
+D_IP=10.10.30.51
 #RABBIT_PASS=secrete
 PASSWORD=PASS
 #ADMIN_TOKEN=ADMIN
@@ -49,7 +49,7 @@ openstack service create --name neutron \
 
 #4.Create the Networking service API endpoints:
 openstack endpoint create --region RegionOne \
-  network public http://$C_IP:9696
+  network public http://$M_IP:9696
 
 openstack endpoint create --region RegionOne \
   network internal http://$C_IP:9696
@@ -101,7 +101,7 @@ password = $PASSWORD/g" /etc/neutron/neutron.conf
 
 
 #•Edit the /etc/neutron/plugins/ml2/ml2_conf.ini file and complete the following actions:
-sed -i "s/#type_drivers = local,flat,vlan,gre,vxlan,geneve/type_drivers = vxlan\n\
+sed -i "s/#type_drivers = local,flat,vlan,gre,vxlan,geneve/type_drivers = flat,vxlan\n\
 tenant_network_types = vxlan\n\
 mechanism_drivers = openvswitch,l2population\n\
 extension_drivers = port_security/g" /etc/neutron/plugins/ml2/ml2_conf.ini
@@ -128,10 +128,14 @@ sed -i "s/#arp_responder = false/arp_responder = True/g" /etc/neutron/plugins/ml
 
 sed -i "s/#enable_distributed_routing = false/enable_distributed_routing = True/g" /etc/neutron/plugins/ml2/openvswitch_agent.ini
 
-#.In the l3_agent.ini file, configure the L3 agent:
-sed -i "s/#interface_driver = <None>/interface_driver = neutron.agent.linux.interface.OVSInterfaceDriver/g" /etc/neutron/l3_agent.ini
+sed -i "s/#bridge_mappings =/bridge_mappings = external:br-ex/g" /etc/neutron/plugins/ml2/openvswitch_agent.ini
 
-sed -i "s/#external_network_bridge = br-ex/external_network_bridge = br-ex/g" /etc/neutron/l3_agent.ini
+
+
+#.In the l3_agent.ini file, configure the L3 agent:
+sed -i "s/#interface_driver = <None>/interface_driver = openvswitch/g" /etc/neutron/l3_agent.ini
+
+sed -i "s/#external_network_bridge = br-ex/external_network_bridge = /g" /etc/neutron/l3_agent.ini
 
 sed -i "s/#agent_mode = legacy/agent_mode = dvr_snat/g" /etc/neutron/l3_agent.ini
 
@@ -139,7 +143,7 @@ sed -i "s/#agent_mode = legacy/agent_mode = dvr_snat/g" /etc/neutron/l3_agent.in
 #.In the dhcp_agent.ini file, configure the DHCP agent:
 sed -i "s/#enable_isolated_metadata = false/enable_isolated_metadata = True/g" /etc/neutron/dhcp_agent.ini
 
-sed -i "s/#interface_driver = <None>/interface_driver = neutron.agent.linux.interface.OVSInterfaceDriver/g" /etc/neutron/dhcp_agent.ini
+sed -i "s/#interface_driver = <None>/interface_driver = openvswitch/g" /etc/neutron/dhcp_agent.ini
 
 touch /etc/neutron/dnsmasq-neutron.conf
 echo "dhcp-option-force=26,1400" >> /etc/neutron/dnsmasq-neutron.conf
