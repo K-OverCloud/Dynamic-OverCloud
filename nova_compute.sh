@@ -6,11 +6,11 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-M_IP=10.10.10.10
-C_IP=10.10.10.10
-D_IP=10.10.10.10
-CTR_M_IP=10.10.10.10
-CTR_C_IP=10.10.10.10
+M_IP=10.10.1.11
+C_IP=10.10.10.4
+D_IP=10.10.20.10
+CTR_M_IP=10.10.1.4
+CTR_C_IP=10.10.10.11
 #RABBIT_PASS=secrete
 PASSWORD=PASS
 #ADMIN_TOKEN=ADMIN
@@ -25,7 +25,7 @@ PASSWORD=PASS
 sudo apt-get install -y nova-compute
 
 #2.Edit the /etc/nova/nova.conf file and complete the following actions:
-sed -i "s/enabled_apis=ec2,osapi_compute,metadata/enabled_apis=ec2,osapi_compute,metadata\n\
+sed -i "s/enabled_apis=osapi_compute,metadata/enabled_apis=ec2,osapi_compute,metadata\n\
 rpc_backend = rabbit\n\
 auth_strategy = keystone\n\
 my_ip = $C_IP\n\
