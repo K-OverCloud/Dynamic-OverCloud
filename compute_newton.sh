@@ -1,6 +1,8 @@
+#!/bin/bash
+
 update_package(){
 	#This is installation for OpenStack Mitaka Release.
-
+	
 	#Add Repository and update
 	apt-get install -y software-properties-common
 	add-apt-repository -y cloud-archive:newton
@@ -89,7 +91,7 @@ install_neutron_w_dvr(){
 
 	#1.Install the packages:
 	sudo apt-get install -y neutron-plugin-ml2 neutron-plugin-openvswitch-agent neutron-l3-agent
-
+	
 
 	#•Edit the /etc/neutron/neutron.conf file and complete the following actions:
 	sed -i "s/#rpc_backend = rabbit/rpc_backend = rabbit/g" /etc/neutron/neutron.conf
@@ -106,7 +108,6 @@ install_neutron_w_dvr(){
 	project_name = service\n\
 	username = neutron\n\
 	password = $PASSWORD/g" /etc/neutron/neutron.conf
-
 
 	#•Edit the /etc/nova/nova.conf file and complete the following actions:
 	#◦In the [neutron] section, configure access parameters:
@@ -191,12 +192,14 @@ configure_ovs(){
 	ifconfig $INTERFACE up
 }
 
-M_IP=<M_IP>
-C_IP=<C_IP>
-D_IP=<D_IP>
-CTR_M_IP=<CTR_M_IP>
-CTR_C_IP=<CTR_C_IP>
-PASSWORD=<PASSWORD>
+source compute.cfg
+
+#M_IP=<M_IP>
+#C_IP=<C_IP>
+#D_IP=<D_IP>
+#CTR_M_IP=<CTR_M_IP>
+#CTR_C_IP=<CTR_C_IP>
+#PASSWORD=<PASSWORD>
 #RABBIT_PASS=secrete
 #ADMIN_TOKEN=ADMIN
 #MAIL=jshan@nm.gist.ac.kr

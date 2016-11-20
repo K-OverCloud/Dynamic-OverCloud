@@ -900,11 +900,13 @@ EOF
 	service heat-engine restart
 }
 
-M_IP=<M_IP>
-C_IP=<C_IP>
-D_IP=<D_IP>
+source controller.cfg
+
+#M_IP=<M_IP>
+#C_IP=<C_IP>
+#D_IP=<D_IP>
 #RABBIT_PASS=secrete
-PASSWORD=<PASSWORD>
+#PASSWORD=<PASSWORD>
 #ADMIN_TOKEN=ADMIN
 #MAIL=jshan@nm.gist.ac.kr
 #SERVICES="keystone glance nova neutron horizon"
