@@ -4,7 +4,7 @@
 SaaS OverCloud is overlay-based cloud concept for SaaS compatibility over hybrid and multi-site clouds. 
 OverCloud is overlay-based cloud which consists of tower, logical clusters and datalake. 
 UnderCloud is collection of physical ICT resources of hyper-convergence boxes.
-Our main goal is to running diverse workload such as 3-tier, IoT-Cloud and HPC/BigData over SaaS OverCloud. 
+Our main goal is to running diverse workloads such as 3-tier, IoT-Cloud and HPC/BigData over SaaS OverCloud. 
 Now we are focusing on 3-ter web-app-db SaaS application.
 
 ### Release Version ###
