@@ -1,0 +1,5 @@
+export OS_AUTH_URL=http://192.168.88.200:5000/v2.0
+export OS_USERNAME=demo
+export OS_TENANT_NAME=demo
+export OS_PASSWORD=PASS
+export OS_MISTRAL_URL=http://192.168.88.200:8989/v2

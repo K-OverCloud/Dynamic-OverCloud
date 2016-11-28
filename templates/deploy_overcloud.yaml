@@ -1,0 +1,13 @@
+---
+version: '2.0'
+deploy_overcloud:
+  description: Workflow for OverCloud Deployment
+  type: direct
+  input: # Input parameter declarations
+    - name
+    - template
+    #- parameters
+  tasks:
+    craete_heat:
+      action: heat.stacks_create stack_name=<% $.name %> template_url=<% $.template %>
+

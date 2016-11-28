@@ -1,0 +1,21 @@
+template_version: 0.1
+
+description: >
+	This template describes a 3-tier service function chain, which is
+	consisted of Wordpress and MySQL.
+
+functions:
+	WordPressFunction:
+		depends_on:
+			- MariaDBFunction
+		image: wordpress:latest
+		properties:
+			MYSQL_ROOT_PASSWORD: wordpress
+			MYSQL_DATABASE: wordpress
+			MYSQL_USER: wordpress
+			MYSQL_PASSWORD: wordpress		
+	MariaDBFunction:
+		image: mysql:5.7
+		properties:
+			WORDPRESS_DB_HOST: db:3306
+			WORDPRESS_DB_PASSWORD: wordpress
