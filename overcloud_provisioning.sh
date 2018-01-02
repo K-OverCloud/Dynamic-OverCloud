@@ -6,13 +6,10 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-M_IP=210.125.84.51
-C_IP=192.168.88.51
-D_IP=10.10.20.51
-#RABBIT_PASS=secrete
-PASSWORD=fn!xo!ska!
-#ADMIN_TOKEN=ADMIN
-#MAIL=jshan@nm.gist.ac.kr
+M_IP=
+C_IP=
+D_IP=
+PASSWORD=PASS
 
 echo -n "Input your ID: "
 read ID
