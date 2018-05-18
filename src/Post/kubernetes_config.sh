@@ -5,6 +5,24 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+# Public IP Address Checking
+if [ -z "$1" ]; then
+   echo "No argument. Need Your_Floating_IP"
+   echo "ex) ./kubernetes_config.sh 210.125.84.200"
+   exit 1
+fi
+
+
+# find Interfaces
+Interface=`route | grep default | awk '{print $8}'`
+#echo $Interface
+echo "iface $Interface inet static" >> /etc/network/interfaces.d/50-cloud-init.cfg
+echo "        address $1/32" >> /etc/network/interfaces.d/50-cloud-init.cfg
+
+service networking restart
+
+
+
 
 #Turn off swap
 swapoff -a
@@ -34,5 +52,6 @@ EOF
 
 apt-get update
 apt-get install -y kubelet kubeadm kubectl
+
 
 
