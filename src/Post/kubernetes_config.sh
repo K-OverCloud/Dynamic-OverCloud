@@ -36,10 +36,10 @@ echo "net/bridge/bridge-nf-call-arptables = 1" >> /etc/ufw/sysctl.conf
 service ufw restart
 
 # install ebtables and ethtool
+apt-get update
 apt-get install -y ebtables ethtool
 
 # Docker
-apt-get update
 apt-get install -y docker.io
 apt-get install -y apt-transport-https curl
 
