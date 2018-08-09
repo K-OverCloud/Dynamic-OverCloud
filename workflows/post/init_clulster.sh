@@ -5,7 +5,7 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
-IP="210.125.84.200"
+IP=$1
 
 
 kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address $IP >> data
