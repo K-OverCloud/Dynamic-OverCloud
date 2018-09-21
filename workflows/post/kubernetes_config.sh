@@ -37,11 +37,11 @@ service ufw restart
 
 # install ebtables and ethtool
 apt-get update
-apt-get install -y ebtables ethtool
+apt-get install -y ebtables ethtool docker.io apt-transport-https curl
 
 # Docker
-apt-get install -y docker.io
-apt-get install -y apt-transport-https curl
+#apt-get install -y docker.io
+#apt-get install -y apt-transport-https curl
 
 # kubernetes
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
