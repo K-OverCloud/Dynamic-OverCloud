@@ -8,7 +8,7 @@ fi
 IP=$1
 
 
-kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address $IP >> data
+kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address $IP --ignore-preflight-errors all >> data
 
 mkdir -p $HOME/.kube
 rm $HOME/.kube/config
