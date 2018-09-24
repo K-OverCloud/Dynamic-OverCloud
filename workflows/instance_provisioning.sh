@@ -6,18 +6,23 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-MYSQL_HOST="10.10.10.10"
-MYSQL_PASS="pass"
-Provider="OpenStack"
+MYSQL_HOST=""
+MYSQL_PASS=""
+Provider=""
 
 
-Cloud_keystone_IP="10.10.10.10"
+Cloud_keystone_IP=""
 
-ID="demo"
-Password="pass"
-Num="3"
-Flavor="m1.medium"
-key="HJS"
+# $1 == Number
+# $2 == Flavor
+# $3 == Provider
+# $4 == ID
+
+ID=""
+Password=""
+Num=$1
+Flavor=$2
+#key="HJS"
 
 #Keystone Authntication
 export OS_PROJECT_DOMAIN_NAME=default
@@ -41,32 +46,15 @@ if [ "$Output" == "" ]; then
 fi
 
 
+OverCloud_ID=$4
+key=$4
 
-# Create OverCloud ID
-MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-LENGTH="15"
+# Generate SSH key
+ssh-keygen -t rsa -P "" -f $key.key -q
 
-while [ "${n:=1}" -le "$LENGTH" ]
-do
-    OverCloud_ID="$OverCloud_ID${MATRIX:$(($RANDOM%${#MATRIX})):1}"
-    let n+=1
-done
-echo $OverCloud_ID
+nova keypair-add --pub-key $key.key.pub $key
 
-
-# found ID from mysql database
-sql=$(mysql -u overclouds -h $MYSQL_HOST --password=$MYSQL_PASS -e "use overclouds; select * from tenant where tenant_ID='$ID';")
-
-if [ "$sql" == "" ]; then
-  echo "No result"
-  mysql -u overclouds -h $MYSQL_HOST --password=$MYSQL_PASS -e "use overclouds; insert into tenant value('$ID');"
-else
-  echo "Found"
-fi
-
-
-# create tuple for OverCLoud ID
-mysql -u overclouds -h $MYSQL_HOST --password=$MYSQL_PASS -e "use overclouds; insert into overcloud values('$OverCloud_ID', '$ID');"
+mv $key.key $key.key.pub ../configuration/ssh
 
 
 

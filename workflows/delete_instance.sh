@@ -6,13 +6,36 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-OverCloud_ID="zFQoF5YnwximWr9"
+# MySQL
+HOST=""
+PASS=""
+
+
+OverCloud_ID=""
 Num="3"
 
-Cloud_keystone_IP="10.10.10.10"
+Cloud_keystone_IP=""
 
-ID="demo"
-Password="PASS"
+ID=""
+Password=""
+
+
+# delete devops Post
+sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; delete from devops_post where overcloud_ID='$OverCloud_ID';")
+
+# delete logical clusters
+sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; delete from logical_cluster where overcloud_ID='$OverCloud_ID';")
+
+# delete overcloud
+sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; delete from overcloud where overcloud_ID='$OverCloud_ID';")
+
+
+
+
+# delete ssh Keys
+rm ../configuration/ssh/$OverCloud_ID.key
+rm ../configuration/ssh/$OverCloud_ID.key.pub
+
 
 #Keystone Authntication
 export OS_PROJECT_DOMAIN_NAME=default
@@ -70,5 +93,7 @@ openstack router delete overcloud_router_$OverCloud_ID
 openstack network delete overcloud_network_$OverCloud_ID
 
 
+# delete keypair
+nova keypair-delete $OverCloud_ID
 
 

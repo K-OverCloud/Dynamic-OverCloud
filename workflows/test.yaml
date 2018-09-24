@@ -1,0 +1,59 @@
+---
+version: '2.0'
+
+Instantiation:
+  description: OverCloud Instantiation
+  type: reverse
+  input:
+   - operator_host
+   - operator_id
+   - operator_pass
+   - number
+   - flavor
+   - provider
+   - id
+
+  tasks:
+    instance:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash instance_provisioning.sh <% $.number %> <% $.flavor %> <% $.provider %> <% $.id %>"
+
+    kube_init:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash kube_config.sh <% $.id %>"
+      requires: [instance]
+
+    kube_cluster:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash kube_cluster.sh <% $.id %>"
+      requires: [kube_init]
+
+    datalake_provisioning:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows/datalake && sudo bash datalake_provisioning.sh <% $.id %>"
+      requires: [kube_cluster]
+
+    visible_fabric:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows/fabric && sudo bash visible_fabric.sh <% $.id %>"
+
