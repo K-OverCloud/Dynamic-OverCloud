@@ -1,4 +1,0 @@
-{
-    "name": "overcloud",
-    "template": "http://210.125.84.51/templates/overcloud.yaml"
-}
