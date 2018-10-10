@@ -5,9 +5,21 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+#Parsing Function
+get_config_value()
+{
+    cat <<EOF | python
+import ConfigParser
+config = ConfigParser.ConfigParser()
+config.read('$1')
+print (config.get('$2','$3'))
+EOF
+}
+
+
 # MySQL
-HOST=""
-PASS=""
+HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
+PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
 # $1 == OverCloud_ID

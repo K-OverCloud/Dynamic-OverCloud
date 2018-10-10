@@ -6,23 +6,35 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-MYSQL_HOST=""
-MYSQL_PASS=""
-Provider=""
+# Parsing Function
+get_config_value()
+{
+    cat <<EOF | python
+import ConfigParser
+config = ConfigParser.ConfigParser()
+config.read('$1')
+print (config.get('$2','$3'))
+EOF
+}
 
 
-Cloud_keystone_IP=""
+# MySQL
+MYSQL_HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
+MYSQL_PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
+
+
+Provider="amazon"
+
+Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
+
 
 # $1 == Number
 # $2 == Flavor
 # $3 == Provider
 # $4 == ID
 
-ID=""
-Password=""
 Num="3"
 Flavor="c5d.xlarge"
-#key="HJS"
 
 
 OverCloud_ID=$4

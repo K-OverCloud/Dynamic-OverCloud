@@ -1,16 +1,29 @@
 #!/bin/bash
 
+
+# Parsing
+
+
+get_config_value()
+{
+    cat <<EOF | python
+import ConfigParser
+config = ConfigParser.ConfigParser()
+config.read('$1')
+print (config.get('$2','$3'))
+EOF
+}
+
+
 # MySQL
-HOST=""
-PASS=""
+HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
+PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
 # $1 == OverCloud_ID
 
-#OverCloud_ID=$1
 OverCloud_ID=$1
 
-#echo $OverCloud_ID > ID
 
 # find DevOps Post IP
 sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select * from devops_post where overcloud_ID='$OverCloud_ID';")
@@ -35,6 +48,10 @@ for i in $sql; do
   if [ $i == "IP" ]; then
     continue
   fi
+
+
+  # kubelet configuration
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo./dynamic-overcloud/workflows/clusters/join_cluster.sh $i
 
   
   # kube join 
