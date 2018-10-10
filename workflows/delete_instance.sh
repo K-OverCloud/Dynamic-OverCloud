@@ -5,19 +5,35 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+# Parsing Function
+
+get_config_value()
+{
+    cat <<EOF | python
+import ConfigParser
+config = ConfigParser.ConfigParser()
+config.read('$1')
+print (config.get('$2','$3'))
+EOF
+}
+
 
 # MySQL
-HOST=""
-PASS=""
+HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
+PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
+
 
 
 OverCloud_ID=""
 Num="3"
 
-Cloud_keystone_IP=""
 
-ID=""
-Password=""
+Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
+
+
+ID=$(get_config_value ../configuration/init.ini provider OpenStack_ID)
+Password=$(get_config_value ../configuration/init.ini provider OpenStack_Password)
+
 
 
 # delete devops Post

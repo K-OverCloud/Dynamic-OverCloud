@@ -51,7 +51,7 @@ for i in $sql; do
 
 
   # kubelet configuration
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo./dynamic-overcloud/workflows/clusters/join_cluster.sh $i
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo ./dynamic-overcloud/workflows/clusters/join_cluster.sh $i
 
   
   # kube join 
