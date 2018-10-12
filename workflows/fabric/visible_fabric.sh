@@ -105,7 +105,9 @@ for i in $sql; do
   ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo dpkg -i telegraf_1.4.3-1_amd64.deb
 
   # configure conf file
-  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo sed -i "s/http:\/\/localhost/http:\/\/$post_IP/g" /etc/telegraf/telegraf.conf
+  temp="sed -i \"s/http:\/\/localhost/http:\/\/$post_IP/g\" /etc/telegraf/telegraf.conf"
+
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo $temp
 
   # service restart 
   ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo service telegraf restart
