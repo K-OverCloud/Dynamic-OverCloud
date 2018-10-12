@@ -43,6 +43,8 @@ ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl create -f rook/cluster/examples/kubernetes/ceph/storageclass.yaml
 
 # configure default storage
-ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+temp="'{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
+
+ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl patch storageclass rook-ceph-block -p $temp
 
 
