@@ -66,6 +66,7 @@ ssh-keygen -t rsa -P "" -f $key.key -q
 
 nova keypair-add --pub-key $key.key.pub $key
 
+mkdir ../configuration/ssh
 mv $key.key $key.key.pub ../configuration/ssh
 
 
