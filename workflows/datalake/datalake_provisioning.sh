@@ -13,8 +13,8 @@ EOF
 
 
 # MySQL
-HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
-PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
+HOST=$(get_config_value ../../configuration/init.ini database MySQL_HOST)
+PASS=$(get_config_value ../../configuration/init.ini database MySQL_PASS)
 
 
 # $1 == OverCloud_ID
