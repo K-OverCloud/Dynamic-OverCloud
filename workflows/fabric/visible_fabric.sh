@@ -37,7 +37,7 @@ ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador-rbac.yaml
 
-sh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador.yaml
+ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador.yaml
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/statsd-sink-svc.yaml
 
