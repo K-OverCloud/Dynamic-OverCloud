@@ -99,16 +99,16 @@ for i in $sql; do
 
 
   # download telegraf
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo wget https://dl.influxdata.com/telegraf/releases/telegraf_1.4.3-1_amd64.deb
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo wget https://dl.influxdata.com/telegraf/releases/telegraf_1.4.3-1_amd64.deb
 
   # install telegraf 
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo dpkg -i telegraf_1.4.3-1_amd64.deb
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo dpkg -i telegraf_1.4.3-1_amd64.deb
 
   # configure conf file
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo sed -i "s/http:\/\/localhost/http:\/\/$post_IP/g" /etc/telegraf/telegraf.conf
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo sed -i "s/http:\/\/localhost/http:\/\/$post_IP/g" /etc/telegraf/telegraf.conf
 
   # service restart 
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo service telegraf restart
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo service telegraf restart
 
 done
  
