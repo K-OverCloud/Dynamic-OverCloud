@@ -269,10 +269,7 @@ def create_overclouds():
     
 
 
-
-
-
-  elif (provider == "hybrid"):
+  elif (provider == "heterogeneous"):
     openstack = request.get_json()["OpenStack"]
     openstack_size = openstack["size"]
     openstack_number = openstack["number"]
@@ -291,7 +288,104 @@ def create_overclouds():
     print (aws_number)
     print (aws_post)
 
-    return ("hybrid is not supported yet\n")
+    devops=""
+    if (openstack_post == "yes"):
+      devops="OpenStack"
+    else:
+      devops="Amazon"
+
+    #execute Workflow
+
+    cmd="cd ../workflows && bash heterogeneous_instantiation.sh " + ID + " " + openstack_number + " " + aws_number + " " + openstack_size + " " + aws_size + " " + devops
+    print (cmd)
+    #return ("End")
+    result = subprocess.check_output (cmd , shell=True)
+    #return ("End")
+
+
+
+    # Ready for JSON file
+    d1 = defaultdict(list)
+
+    d1["overcloud_ID"] = ID
+
+
+    # find devops IP
+    cmd ="select * from devops_post where overcloud_ID='"
+    cmd = cmd + ID + "';"
+
+    cur = mysql.connect().cursor()
+    cur.execute(cmd)
+    rows = cur.fetchall()
+
+    devops_IP= str(rows[0][0])
+    #print (devops_IP)
+    d1['devops_post'] = devops_IP
+
+
+    # find logical cluster IP
+    cmd ="select * from logical_cluster where overcloud_ID='"
+    cmd = cmd + ID + "';"
+
+    cur = mysql.connect().cursor()
+    cur.execute(cmd)
+    rows = cur.fetchall()
+
+
+    for row in rows:
+      d1["logical_cluster"].append(row[0])
+
+
+
+    # Find SSH
+    cmd="../configuration/ssh/"
+    cmd=cmd + ID
+    cmd=cmd + ".key"
+    #print (cmd)
+
+    out = subprocess.Popen(['cat', cmd], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout,stderr = out.communicate()
+
+    response= stdout.decode()
+    response=response.replace("\n","")
+
+    d1["ssh"] = response
+
+
+
+    # Weave Scope
+    cmd="http://" + devops_IP + ":32080"
+    d1["weave_url"] = cmd
+
+    # Chronograf
+    cmd="http://" + devops_IP +":8888"
+    d1["chronograf_url"] = cmd
+
+
+    # Prometheus
+
+    cmd="ssh -o 'StrictHostKeyChecking = no' -i ../configuration/ssh/"+ ID +".key ubuntu@" + devops_IP + " kubectl get svc | grep prometheus | grep NodePort | awk '{print $5}' | cut -d':' -f2 | cut -d'/' -f1"
+
+    result = subprocess.check_output (cmd , shell=True)
+
+    #out = subprocess.Popen(['ssh', shell=True], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #stdout,stderr = out.communicate()
+
+    response= result.decode()
+    response=response.replace("\n","")
+    cmd="http://" + devops_IP + ":" + response
+    d1["prometheus_url"] = cmd
+
+
+
+    print(json.dumps(d1, ensure_ascii=False, indent="\t") )
+
+    return (json.dumps(d1, ensure_ascii=False, indent="\t"))
+
+
+
+
+    #return ("hybrid is not supported yet\n")
 
   else:
     return "cloud provider is invalid!\n"

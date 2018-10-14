@@ -161,16 +161,23 @@ aws ec2 delete-key-pair --key-name $OverCloud_ID
 ## Openstack delete
 
 
-# delete router subnet
-openstack router remove subnet overcloud_router_$OverCloud_ID overcloud_subnet_$OverCloud_ID
+# check
+temp=$(openstack router list | grep $OverCloud_ID)
 
-# delete router
-openstack router delete overcloud_router_$OverCloud_ID
-
-# delete network
-openstack network delete overcloud_network_$OverCloud_ID
+if [ "$temp" != ""]; then
 
 
-# delete keypair
-nova keypair-delete $OverCloud_ID
+  # delete router subnet
+  openstack router remove subnet overcloud_router_$OverCloud_ID overcloud_subnet_$OverCloud_ID
+
+  # delete router
+  openstack router delete overcloud_router_$OverCloud_ID
+
+  # delete network
+  openstack network delete overcloud_network_$OverCloud_ID
+
+
+  # delete keypair
+  nova keypair-delete $OverCloud_ID
+fi
 

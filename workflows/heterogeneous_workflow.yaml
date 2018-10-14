@@ -1,0 +1,66 @@
+---
+version: '2.0'
+
+Heterogeneous_Instantiation:
+  description: OverCloud Instantiation
+  type: reverse
+  input:
+   - operator_host
+   - operator_id
+   - operator_pass
+   - openstack_number
+   - openstack_flavor
+   - amazon_number
+   - amazon_flavor
+   - devops
+   - id
+
+  tasks:
+    instance:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash heterogeneous_provisioning.sh <% $.openstack_number %> <% $.amazon_number %> <% $.openstack_flavor %> <% $.amazon_flavor %> <% $.devops %> <% $.id %>"
+
+    devops_post:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash kube_config.sh <% $.id %>"
+      requires: [instance]
+
+    logical_cluster:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows && sudo bash kube_cluster.sh <% $.id %>"
+      requires: [devops_post]
+
+    datalake:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows/datalake && sudo bash datalake_provisioning.sh <% $.id %>"
+      requires: [logical_cluster]
+
+    visible_fabric:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows/fabric && sudo bash visible_fabric.sh <% $.id %>"
+      requires: [logical_cluster]
+
+    finish:
+      action: std.echo output="Finish"
+      requires: [datalake, visible_fabric]
+

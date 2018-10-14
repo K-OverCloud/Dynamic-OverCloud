@@ -77,9 +77,18 @@ EOF
 
 
 # Generate SSH key
+ssh-keygen -t rsa -P "" -f $OverCloud_ID.key -q
 
-aws ec2 create-key-pair --key-name $OverCloud_ID --query 'KeyMaterial' --output text > ../configuration/ssh/$OverCloud_ID.key 
-chmod 400 ../configuration/ssh/$OverCloud_ID.key
+aws ec2 import-key-pair --key-name $OverCloud_ID --public-key-material file://$OverCloud_ID.key.pub
+
+
+mkdir ../configuration/ssh
+mv $OverCloud_ID.key $OverCloud_ID.key.pub ../configuration/ssh
+
+#aws ec2 create-key-pair --key-name $OverCloud_ID --query 'KeyMaterial' --output text > ../configuration/ssh/$OverCloud_ID.key 
+
+#chmod 400 ../configuration/ssh/$OverCloud_ID.key
+
 
 
 # Instnace Creation
