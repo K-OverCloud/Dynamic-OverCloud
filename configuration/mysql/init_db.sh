@@ -28,22 +28,22 @@ GRANT ALL PRIVILEGES ON overclouds.* TO 'overclouds'@'localhost' IDENTIFIED BY '
 GRANT ALL PRIVILEGES ON overclouds.* TO 'overclouds'@'%' IDENTIFIED BY '$PASS';
 use overclouds;
 CREATE TABLE tenant(
-tenant_ID VARCHAR(30) NOT NULL,
+tenant_ID VARCHAR(50) NOT NULL,
 PRIMARY KEY (tenant_ID));
 CREATE TABLE overcloud(
-overcloud_ID VARCHAR (30) NOT NULL,
-tenant_ID VARCHAR (30) NOT NULL,
+overcloud_ID VARCHAR (50) NOT NULL,
+tenant_ID VARCHAR (50) NOT NULL,
 PRIMARY KEY (overcloud_ID),
 FOREIGN KEY (tenant_ID) references tenant(tenant_ID));
 CREATE TABLE devops_post(
 IP VARCHAR (30) NOT NULL,
-overcloud_ID VARCHAR (30) NOT NULL,
-provider VARCHAR (30) NOT NULL,
+overcloud_ID VARCHAR (50) NOT NULL,
+provider VARCHAR (50) NOT NULL,
 PRIMARY KEY(IP),
 FOREIGN KEY (overcloud_ID) references overcloud(overcloud_ID));
 CREATE TABLE logical_cluster(
 IP VARCHAR (30) NOT NULL,
-overcloud_ID VARCHAR (30) NOT NULL,
+overcloud_ID VARCHAR (50) NOT NULL,
 provider VARCHAR (30) NOT NULL,
 PRIMARY KEY(IP),
 FOREIGN KEY(overcloud_ID) references overcloud(overcloud_ID));
