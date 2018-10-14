@@ -24,7 +24,7 @@ PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
 
-OverCloud_ID="372d316b-89a2-4be5-a4f9-fad72a3207ac"
+OverCloud_ID="$1"
 
 Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
 
