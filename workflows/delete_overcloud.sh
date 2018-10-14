@@ -24,7 +24,7 @@ PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
 
-OverCloud_ID="DIYX1b7cBsy1KNo"
+OverCloud_ID="U2ddcKdZDkjRxqV"
 
 Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
 
@@ -80,7 +80,7 @@ echo $post_IP
 sql==$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select provider from devops_post where overcloud_ID='$OverCloud_ID';")
 #echo $sql
 provider=`echo $sql | awk '{print $2}'`
-w
+
 
 echo $provider
 
