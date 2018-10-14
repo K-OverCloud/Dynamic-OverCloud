@@ -296,7 +296,7 @@ def create_overclouds():
 
     #execute Workflow
 
-    cmd="cd ../workflows && bash heterogeneous_instantiation.sh " + ID + " " + openstack_number + " " + aws_number + " " + openstack_size + " " + aws_size + " " + devops
+    cmd="cd ../workflows && bash heterogeneous.sh " + ID + " " + openstack_number + " " + aws_number + " " + openstack_size + " " + aws_size + " " + devops
     print (cmd)
     #return ("End")
     result = subprocess.check_output (cmd , shell=True)
