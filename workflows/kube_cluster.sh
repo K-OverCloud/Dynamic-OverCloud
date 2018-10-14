@@ -6,9 +6,9 @@
 
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF

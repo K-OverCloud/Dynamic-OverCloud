@@ -9,9 +9,9 @@ fi
 
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF
@@ -24,7 +24,7 @@ PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
 
-OverCloud_ID="U2ddcKdZDkjRxqV"
+OverCloud_ID="372d316b-89a2-4be5-a4f9-fad72a3207ac"
 
 Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
 

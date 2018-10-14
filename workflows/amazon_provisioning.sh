@@ -9,9 +9,9 @@ fi
 # Parsing Function
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF
@@ -33,8 +33,8 @@ Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStac
 # $3 == Provider
 # $4 == ID
 
-Num="3"
-Flavor="c5d.xlarge"
+Num="5"
+Flavor="c5d.2xlarge"
 
 
 OverCloud_ID=$4

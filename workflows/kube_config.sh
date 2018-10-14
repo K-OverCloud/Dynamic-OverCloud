@@ -8,9 +8,9 @@ fi
 #Parsing Function
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF
@@ -46,7 +46,7 @@ check=0
 while [ $check == 0 ]
 do
         ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key -q ubuntu@$post_IP exit
-        if [ "$?" = 0 ]
+        if [ "$?" == 0 ]
         then
           echo "Host found"
           check=1

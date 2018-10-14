@@ -6,20 +6,30 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-Provider="OpenStack"
+# OverCloud_ID = $1
+# Provider = $2
+# Number = $3
+# Flavor = $4
 
+#Provider="OpenStack"
+Provider=$2
 
-Num="2"
-Flavor="m1.logical"
+#Num="2"
+Num=$3
+
+Flavor=$4
+#Flavor="m1.logical"
+
+OverCloud_ID=$1
 
 
 # Parsing Function
 
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF
@@ -66,15 +76,15 @@ fi
 
 
 # Create OverCloud ID
-MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-LENGTH="15"
+#MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#LENGTH="15"
 
-while [ "${n:=1}" -le "$LENGTH" ]
-do
-    OverCloud_ID="$OverCloud_ID${MATRIX:$(($RANDOM%${#MATRIX})):1}"
-    let n+=1
-done
-echo $OverCloud_ID
+#while [ "${n:=1}" -le "$LENGTH" ]
+#do
+#    OverCloud_ID="$OverCloud_ID${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+#    let n+=1
+#done
+#echo $OverCloud_ID
 
 
 # found ID from mysql database
@@ -99,14 +109,29 @@ echo '{"operator_host":"'$operator_host'","operator_id":"'$operator_id'","operat
 
 # create task_name file
 touch task_name.json
-echo '{"task_name":"datalake_provisioning"}' > task_name.json
+echo '{"task_name":"visible_fabric"}' > task_name.json
 
 
 # run mistral execution-create
-mistral execution-create Instantiation input.json task_name.json
+mistral execution-create Instantiation input.json task_name.json -d $OverCloud_ID
 
 rm input.json
 rm task_name.json
+
+
+# wait until finishing workflows
+
+while [ true ]
+do
+  temp=$(mistral execution-list | grep $OverCloud_ID | grep RUNNING)
+  if [ "$temp" != "" ]; then
+    echo "Waiting"
+    sleep 3
+  else
+    echo "Finish"
+    break
+  fi
+done
 
 
 

@@ -8,9 +8,9 @@ fi
 # Parsing Function
 get_config_value()
 {
-    cat <<EOF | python
-import ConfigParser
-config = ConfigParser.ConfigParser()
+    cat <<EOF | python3
+import configparser
+config = configparser.ConfigParser()
 config.read('$1')
 print (config.get('$2','$3'))
 EOF
@@ -33,7 +33,7 @@ Password=$(get_config_value ../configuration/init.ini provider OpenStack_Passwor
 
 
 Num="3"
-
+Flavor="d5.small"
 
 operator_host=$(get_config_value ../configuration/init.ini operator Operator_HOST)
 operator_id=$(get_config_value ../configuration/init.ini operator Operator_ID)
@@ -75,7 +75,7 @@ echo '{"operator_host":"'$operator_host'","operator_id":"'$operator_id'","operat
 
 # create task_name file
 touch task_name.json
-echo '{"task_name":"datalake_provisioning"}' > task_name.json
+echo '{"task_name":"visible_fabric"}' > task_name.json
 
 
 # run mistral execution-create
