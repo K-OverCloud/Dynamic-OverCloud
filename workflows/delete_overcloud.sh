@@ -164,7 +164,7 @@ aws ec2 delete-key-pair --key-name $OverCloud_ID
 # check
 temp=$(openstack router list | grep $OverCloud_ID)
 
-if [ "$temp" != ""]; then
+if [ "$temp" != "" ]; then
 
 
   # delete router subnet
