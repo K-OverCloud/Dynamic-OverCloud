@@ -22,7 +22,7 @@ Instantiation:
         password: "<% $.operator_pass %>"
         cmd: "cd dynamic-overcloud/workflows && sudo bash instance_provisioning.sh <% $.number %> <% $.flavor %> <% $.provider %> <% $.id %>"
 
-    kube_init:
+    devops_post:
       action: std.ssh
       input:
         host: <% $.operator_host %>
@@ -31,23 +31,23 @@ Instantiation:
         cmd: "cd dynamic-overcloud/workflows && sudo bash kube_config.sh <% $.id %>"
       requires: [instance]
 
-    kube_cluster:
+    logical_cluster:
       action: std.ssh
       input:
         host: <% $.operator_host %>
         username: "<% $.operator_id %>"
         password: "<% $.operator_pass %>"
         cmd: "cd dynamic-overcloud/workflows && sudo bash kube_cluster.sh <% $.id %>"
-      requires: [kube_init]
+      requires: [devops_post]
 
-    datalake_provisioning:
+    datalake:
       action: std.ssh
       input:
         host: <% $.operator_host %>
         username: "<% $.operator_id %>"
         password: "<% $.operator_pass %>"
         cmd: "cd dynamic-overcloud/workflows/datalake && sudo bash datalake_provisioning.sh <% $.id %>"
-      requires: [kube_cluster]
+      requires: [logical_cluster]
 
     visible_fabric:
       action: std.ssh
@@ -56,4 +56,9 @@ Instantiation:
         username: "<% $.operator_id %>"
         password: "<% $.operator_pass %>"
         cmd: "cd dynamic-overcloud/workflows/fabric && sudo bash visible_fabric.sh <% $.id %>"
+      requires: [logical_cluster]
+
+    finish:
+      action: std.echo output="Finish"
+      requires: [datalake, visible_fabric]
 

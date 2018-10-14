@@ -109,7 +109,7 @@ echo '{"operator_host":"'$operator_host'","operator_id":"'$operator_id'","operat
 
 # create task_name file
 touch task_name.json
-echo '{"task_name":"visible_fabric"}' > task_name.json
+echo '{"task_name":"finish"}' > task_name.json
 
 
 # run mistral execution-create
