@@ -87,9 +87,6 @@ touch task_name.json
 echo '{"task_name":"finish"}' > task_name.json
 
 
-rm input.json
-rm task_name.json
-
 # run mistral execution-create
 mistral execution-create Amazon_Instantiation input.json task_name.json -d $OverCloud_ID
 
