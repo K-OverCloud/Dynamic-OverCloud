@@ -48,3 +48,13 @@ Amazon_Instantiation:
         password: "<% $.operator_pass %>"
         cmd: "cd dynamic-overcloud/workflows/datalake && sudo bash datalake_provisioning.sh <% $.id %>"
       requires: [kube_cluster]
+
+     visible_fabric:
+      action: std.ssh
+      input:
+        host: <% $.operator_host %>
+        username: "<% $.operator_id %>"
+        password: "<% $.operator_pass %>"
+        cmd: "cd dynamic-overcloud/workflows/fabric && sudo bash visible_fabric.sh <% $.id %>"
+      requires: [datalake_provisioning]
+
