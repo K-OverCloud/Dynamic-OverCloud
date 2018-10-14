@@ -18,5 +18,5 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 
 cat data | grep kubeadm | grep join >> join_data
-rm data
+#rm data
 
