@@ -222,8 +222,10 @@ fi
 # Floating IP (Logical Cluster)
 count=$OpenStack_Number
 
+total=$Amazon_Number
+let total=total+$count
 
-while [ $count != $Amazon_Number ]
+while [ $count != $total ]
 do
   let count=count+1
 
