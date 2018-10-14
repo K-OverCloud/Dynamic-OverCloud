@@ -84,7 +84,7 @@ provider=`echo $sql | awk '{print $2}'`
 
 echo $provider
 
-if [ $provider == "amazon" ]; then
+if [ $provider == "Amazon" ]; then
    echo "amazon delete"
 
    Instance_id=$(aws ec2 describe-instances --filter "Name=ip-address, Values=$post_IP" --query "Reservations[].Instances[].InstanceId" --output text)
@@ -102,7 +102,7 @@ fi
 
 
 # find logical cluster IPs with Amazon
-sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select IP from logical_cluster where overcloud_ID='$OverCloud_ID' and provider='amazon';")
+sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select IP from logical_cluster where overcloud_ID='$OverCloud_ID' and provider='Amazon';")
 
 
 for i in $sql; do

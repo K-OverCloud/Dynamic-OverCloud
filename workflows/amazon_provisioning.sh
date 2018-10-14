@@ -23,7 +23,7 @@ MYSQL_HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
 MYSQL_PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
-Provider="amazon"
+Provider=$3
 
 Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
 
@@ -33,8 +33,8 @@ Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStac
 # $3 == Provider
 # $4 == ID
 
-Num="5"
-Flavor="c5d.2xlarge"
+Num=$1
+Flavor=$2
 
 
 OverCloud_ID=$4

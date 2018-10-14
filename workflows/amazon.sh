@@ -17,13 +17,22 @@ EOF
 }
 
 
+
+# OverCloud_ID = $1
+# Provider = $2
+# Number = $3
+# Flavor = $4
+
+
+
 # MySQL
 MYSQL_HOST=$(get_config_value ../configuration/init.ini database MySQL_HOST)
 MYSQL_PASS=$(get_config_value ../configuration/init.ini database MySQL_PASS)
 
 
+OverCloud_ID=$1
 
-Provider="Amazon"
+Provider=$2
 
 Cloud_keystone_IP=$(get_config_value ../configuration/init.ini provider OpenStack_keystone)
 
@@ -32,8 +41,8 @@ ID=$(get_config_value ../configuration/init.ini provider OpenStack_ID)
 Password=$(get_config_value ../configuration/init.ini provider OpenStack_Password)
 
 
-Num="3"
-Flavor="d5.small"
+Num=$3
+Flavor=$4
 
 operator_host=$(get_config_value ../configuration/init.ini operator Operator_HOST)
 operator_id=$(get_config_value ../configuration/init.ini operator Operator_ID)
@@ -42,15 +51,15 @@ operator_pass=$(get_config_value ../configuration/init.ini operator Operator_PAS
 
 
 # Create OverCloud ID
-MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-LENGTH="15"
+#MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+#LENGTH="15"
 
-while [ "${n:=1}" -le "$LENGTH" ]
-do
-    OverCloud_ID="$OverCloud_ID${MATRIX:$(($RANDOM%${#MATRIX})):1}"
-    let n+=1
-done
-echo $OverCloud_ID
+#while [ "${n:=1}" -le "$LENGTH" ]
+#do
+#    OverCloud_ID="$OverCloud_ID${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+#    let n+=1
+#done
+#echo $OverCloud_ID
 
 
 # found ID from mysql database
@@ -78,11 +87,29 @@ touch task_name.json
 echo '{"task_name":"visible_fabric"}' > task_name.json
 
 
+rm input.json
+rm task_name.json
+
 # run mistral execution-create
-mistral execution-create Amazon_Instantiation input.json task_name.json
+mistral execution-create Amazon_Instantiation input.json task_name.json -d $OverCloud_ID
 
 rm input.json
 rm task_name.json
+
+
+# wait until finishing workflows
+
+while [ true ]
+do
+  temp=$(mistral execution-list | grep $OverCloud_ID | grep RUNNING)
+  if [ "$temp" != "" ]; then
+    echo "Waiting"
+    sleep 3
+  else
+    echo "Finish"
+    break
+  fi
+done
 
 
 
