@@ -49,7 +49,7 @@ Amazon_Instantiation:
         cmd: "cd dynamic-overcloud/workflows/datalake && sudo bash datalake_provisioning.sh <% $.id %>"
       requires: [kube_cluster]
 
-     visible_fabric:
+    visible_fabric:
       action: std.ssh
       input:
         host: <% $.operator_host %>
