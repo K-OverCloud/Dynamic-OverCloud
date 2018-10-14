@@ -45,11 +45,11 @@ sleep 1
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador.yaml
 
-sleep 5
+sleep 15
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/statsd-sink-svc.yaml
 
-sleep 1
+sleep 5
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/prometheus.yaml
 
