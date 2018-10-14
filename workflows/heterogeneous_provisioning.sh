@@ -127,7 +127,12 @@ if [ "$devops_post" == "OpenStack" ]; then
 fi
 
 # Logical Cluster 
-openstack server create --key-name $OverCloud_ID --flavor $OpenStack_Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster --max $OpenStack_Number
+if [ "$OpenStack_Number" == "1" ]; then
+  openstack server create --key-name $OverCloud_ID --flavor $OpenStack_Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster-1 --max $OpenStack_Number
+
+else
+  openstack server create --key-name $OverCloud_ID --flavor $OpenStack_Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster --max $OpenStack_Number
+fi
 
 
 # find flaoting ip list

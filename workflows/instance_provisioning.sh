@@ -95,7 +95,16 @@ openstack router add subnet overcloud_router_$OverCloud_ID overcloud_subnet_$Ove
 openstack server create --key-name $key --flavor $Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID DevOps_Post
 
 # Logical Cluster 
-openstack server create --key-name $key --flavor $Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster --max $Num
+if [ "$Num" == "1" ]; then
+  openstack server create --key-name $key --flavor $Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster-1 --max $Num
+
+else
+  openstack server create --key-name $key --flavor $Flavor --image ubuntu-xenial --network overcloud_network_$OverCloud_ID Logical_Cluster --max $Num
+fi
+
+
+
+
 
 
 # find flaoting ip list
