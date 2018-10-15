@@ -93,6 +93,10 @@ def create_overclouds():
 
     d1["overcloud_ID"] = ID
 
+    # MultiView Framework
+    url="http://210.125.84.69:3006/menu"
+    d1["smartx-multiview"] =url
+
 
     # find devops IP
     cmd ="select * from devops_post where overcloud_ID='"
@@ -192,6 +196,12 @@ def create_overclouds():
 
     d1["overcloud_ID"] = ID
 
+
+    # MultiView Framework
+    url="http://210.125.84.69:3006/menu"
+    d1["smartx-multiview"] =url
+
+ 
 
     # find devops IP
     cmd ="select * from devops_post where overcloud_ID='"
@@ -309,6 +319,12 @@ def create_overclouds():
 
     d1["overcloud_ID"] = ID
 
+
+    # MultiView Framework
+    url="http://210.125.84.69:3006/menu"
+    d1["smartx-multiview"] =url
+
+  
 
     # find devops IP
     cmd ="select * from devops_post where overcloud_ID='"
