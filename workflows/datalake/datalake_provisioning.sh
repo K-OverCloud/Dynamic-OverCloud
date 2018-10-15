@@ -24,6 +24,40 @@ OverCloud_ID=$1
 
 #echo $OverCloud_ID > ID
 
+
+
+# Logcial Cluster (only for Amazon, Mount)
+# find logical cluster IPs
+sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select IP from logical_cluster where overcloud_ID='$OverCloud_ID' and provider='Amazon';")
+
+for i in $sql; do
+  if [ $i == "IP" ]; then
+    continue
+  fi
+
+
+  # file system
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo file -s /dev/nvme1n1
+
+  # ex4 system
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkfs -t ext4 /dev/nvme1n1
+
+  # mkdir 
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkdir /var/lib/rook
+
+  # mount
+  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mount /dev/nvme1n1 /var/lib/rook
+
+
+done
+
+
+
+
+
+
+
+
 # find DevOps Post IP
 sql=$(mysql -u overclouds -h $HOST --password=$PASS -e "use overclouds; select * from devops_post where overcloud_ID='$OverCloud_ID';")
 post_IP=`echo $sql | awk '{print $4}'`
