@@ -37,16 +37,19 @@ for i in $sql; do
 
 
   # file system
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo file -s /dev/nvme1n1
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo file -s /dev/nvme1n1
+  sleep 2
 
   # ex4 system
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkfs -t ext4 /dev/nvme1n1
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkfs -t ext4 /dev/nvme1n1
+  sleep 2
 
   # mkdir 
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkdir /var/lib/rook
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mkdir /var/lib/rook
+  sleep 2
 
   # mount
-  ssh -o "StrictHostKeyChecking = no" -i ../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mount /dev/nvme1n1 /var/lib/rook
+  ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$i sudo mount /dev/nvme1n1 /var/lib/rook
 
 
 done
