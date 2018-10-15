@@ -150,6 +150,18 @@ def create_overclouds():
     d1["chronograf_url"] = cmd
      
 
+
+    # Rook Dashboard
+    cmd="ssh -o 'StrictHostKeyChecking = no' -i ../configuration/ssh/"+ ID +".key ubuntu@" + devops_IP + " kubectl get svc --all-namespaces | grep external | awk '{print $6}' | cut -d':' -f2 | cut -d'/' -f1"
+
+    result = subprocess.check_output(cmd, shell=True)
+    
+    response= result.decode()
+    response=response.replace("\n","")
+    cmd="http://" + devops_IP + ":" + response
+    d1["rook_url"] = cmd
+
+
     # Prometheus
 
     cmd="ssh -o 'StrictHostKeyChecking = no' -i ../configuration/ssh/"+ ID +".key ubuntu@" + devops_IP + " kubectl get svc | grep prometheus | grep NodePort | awk '{print $5}' | cut -d':' -f2 | cut -d'/' -f1"
@@ -253,6 +265,20 @@ def create_overclouds():
     # Chronograf
     cmd="http://" + devops_IP +":8888"
     d1["chronograf_url"] = cmd
+
+
+
+    # Rook Dashboard
+    cmd="ssh -o 'StrictHostKeyChecking = no' -i ../configuration/ssh/"+ ID +".key ubuntu@" + devops_IP + " kubectl get svc --all-namespaces | grep external | awk '{print $6}' | cut -d':' -f2 | cut -d'/' -f1"
+
+    result = subprocess.check_output(cmd, shell=True)
+
+    response= result.decode()
+    response=response.replace("\n","")
+    cmd="http://" + devops_IP + ":" + response
+    d1["rook_url"] = cmd
+
+
 
 
     # Prometheus
@@ -376,6 +402,19 @@ def create_overclouds():
     # Chronograf
     cmd="http://" + devops_IP +":8888"
     d1["chronograf_url"] = cmd
+
+
+    # Rook Dashboard
+    cmd="ssh -o 'StrictHostKeyChecking = no' -i ../configuration/ssh/"+ ID +".key ubuntu@" + devops_IP + " kubectl get svc --all-namespaces | grep external | awk '{print $6}' | cut -d':' -f2 | cut -d'/' -f1"
+
+    result = subprocess.check_output(cmd, shell=True)
+
+    response= result.decode()
+    response=response.replace("\n","")
+    cmd="http://" + devops_IP + ":" + response
+    d1["rook_url"] = cmd
+
+
 
 
     # Prometheus

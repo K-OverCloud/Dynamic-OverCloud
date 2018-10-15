@@ -42,6 +42,12 @@ ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key
 # add rook block storage
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl create -f rook/cluster/examples/kubernetes/ceph/storageclass.yaml
 
+
+# external rock dashboard
+ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f rook/cluster/examples/kubernetes/ceph/dashboard-external.yaml
+
+
+
 # configure default storage
 temp="'{\"metadata\": {\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"}}}'"
 
