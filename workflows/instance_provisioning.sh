@@ -77,7 +77,7 @@ mv $key.key $key.key.pub ../configuration/ssh
 openstack network create overcloud_network_$OverCloud_ID
 
 # create subnet
-openstack subnet create --network overcloud_network_$OverCloud_ID --dns-nameserver 8.8.8.8 --subnet-range 192.168.100.0/24 overcloud_subnet_$OverCloud_ID
+openstack subnet create --network overcloud_network_$OverCloud_ID --dns-nameserver 8.8.8.8 --subnet-range 192.200.30.0/24 overcloud_subnet_$OverCloud_ID
 
 # create router
 openstack router create overcloud_router_$OverCloud_ID

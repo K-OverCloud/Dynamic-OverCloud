@@ -8,6 +8,13 @@ fi
 IP=$1
 
 
+# editing kubelet configuration
+echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+systemctl daemon-reload
+systemctl restart kubelet
+
+
+
 kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address $IP --ignore-preflight-errors all >> data
 
 mkdir -p $HOME/.kube
