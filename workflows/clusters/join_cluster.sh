@@ -9,6 +9,7 @@ Public_IP=$1
 
 
 # editing kubelet configuration
-echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$Public_IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+#echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$Public_IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+sudo sed -i "s/ARGS=/ARGS=$Public_IP/g" /etc/default/kubelet
 systemctl daemon-reload
 systemctl restart kubelet
