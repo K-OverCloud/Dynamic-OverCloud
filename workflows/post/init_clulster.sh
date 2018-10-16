@@ -10,7 +10,7 @@ IP=$1
 
 # editing kubelet configuration
 #echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=$IP\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
-#sudo sed -i "s/ARGS=/ARGS=$IP/g" /etc/default/kubelet
+sudo sed -i "s/ARGS=/ARGS=--node-ip=$IP/g" /etc/default/kubelet
 
 #systemctl daemon-reload
 #systemctl restart kubelet
