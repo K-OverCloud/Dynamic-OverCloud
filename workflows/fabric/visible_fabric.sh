@@ -33,15 +33,15 @@ echo $post_IP
 # Prometheus & Envoy
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/prom-operator.yaml
 
-sleep 1
+sleep 3
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/prom-rbac.yaml
 
-sleep 1
+sleep 3
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador-rbac.yaml
 
-sleep 1
+sleep 5
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/ambassador.yaml
 
@@ -53,11 +53,11 @@ sleep 5
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/prometheus.yaml
 
-sleep 1
+sleep 3
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/prom-svc.yaml
 
-sleep 1
+sleep 3
 
 ssh -o "StrictHostKeyChecking = no" -i ../../configuration/ssh/$OverCloud_ID.key ubuntu@$post_IP sudo kubectl apply -f dynamic-overcloud/workflows/fabric/httpbin.yaml
 
