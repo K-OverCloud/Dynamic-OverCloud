@@ -196,7 +196,7 @@ Image="ami-00ca7ffe117e2fe91"
 
 if [ "$devops_post" == "Amazon" ]; then
 
-  DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type c5d.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
+  DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type c5d.2xlarge --block-device-mappings "{\"DeviceName\": \"/dev/sda1\",\"Ebs\": { \"VolumeSize\": 50}}" --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
 
   DevOps_id=$(echo "$DevOps_id" | tr -d '"')
 
@@ -231,7 +231,7 @@ do
 
   temp="Logical_Cluster"-$count
 
-  Logical_Cluster_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type $Amazon_Flavor --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
+  Logical_Cluster_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type $Amazon_Flavor --block-device-mappings "{\"DeviceName\": \"/dev/sda1\",\"Ebs\": { \"VolumeSize\": 50}}" --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
 
   Logical_Cluster_id=$(echo "$Logical_Cluster_id" | tr -d '"')
 
