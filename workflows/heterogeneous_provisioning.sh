@@ -196,7 +196,7 @@ Image="ami-00ca7ffe117e2fe91"
 
 if [ "$devops_post" == "Amazon" ]; then
 
-  DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type t2.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
+  DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type c5d.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
 
   DevOps_id=$(echo "$DevOps_id" | tr -d '"')
 

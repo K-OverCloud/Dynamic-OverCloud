@@ -97,7 +97,7 @@ mv $OverCloud_ID.key $OverCloud_ID.key.pub ../configuration/ssh
 
 #aws ec2 run-instances --image-id $Image --count 1 --instance-type t2.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId'
 
-DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type t2.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
+DevOps_id=$(aws ec2 run-instances --image-id $Image --count 1 --instance-type c5d.2xlarge --key-name $OverCloud_ID --query 'Instances[0].InstanceId')
 
 DevOps_id=$(echo "$DevOps_id" | tr -d '"')
 
