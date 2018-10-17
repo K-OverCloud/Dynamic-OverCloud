@@ -51,7 +51,9 @@ deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 apt-get update
+#apt-get install -y kubelet kubeadm kubectl
+
+apt-get install -y ebtables ethtool docker.io apt-transport-https curl
+
 apt-get install -y kubelet kubeadm kubectl
-
-
 
