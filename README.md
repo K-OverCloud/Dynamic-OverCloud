@@ -1,28 +1,18 @@
 # Dynamic OverCloud
-## Summary ##
 
-### Overview ###
-SaaS OverCloud is overlay-based cloud concept for SaaS compatibility over hybrid and multi-site clouds. 
-OverCloud is overlay-based cloud which consists of tower, logical clusters and datalake. 
-UnderCloud is collection of physical ICT resources of hyper-convergence boxes.
-Our main goal is to running diverse workloads such as 3-tier, IoT-Cloud and HPC/BigData over SaaS OverCloud. 
-Now we are focusing on 3-ter web-app-db SaaS application.
-
-### Release Version ###
-This is the first version of the tools and it still being developed/verified.
-
-### Curruent Support and Caveats ###
-* Ubuntu Operating System 16.04.01 LTS
-* OpenStack Newton Stable Release
-* LXD-based Machine Container-based Instaces
-* Workflow-based Graph using OpenStack Mistral
-* Conatiner-based Function Chaining using Docker Compose
+## Overview ##
+Dynamic OverCloud is a specially-arranged razor-thin overlay layer that supports the open-source leveraged service composition in a cloud-agnostic way. Dynamic OverCloud includes several elements to support the MSA-based service composition. Dynamic OverCloud consists of Interface Proxy, Dev+Ops Post, Cloud-native Clusters, Connected DataLake and Visible Fabric. Dynamic OverCloud provides the open-source leveraged service composition when given a containerized microservices pattern that corresponds to the targeted service.
 
 
-## Requirement
-* OpenStack / Amazon Clouds
+## Requirements
+Interface Proxy 
 * OpenStack Mistral (Workflow Engine)
+* Python3 
 * Ubuntu 16.04
+
+Cloud Boxes
+* OpenStack (Pike version) / Amazon AWS Clouds
+
 
 ## Install 
 
