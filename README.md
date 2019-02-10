@@ -6,7 +6,7 @@ Dynamic OverCloud is a specially-arranged razor-thin overlay layer that supports
 
 ## Requirements
 Interface Proxy 
-* OpenStack Mistral (Recommended, It doesn't matter it is on another server)
+* OpenStack Mistral
 * Python3 
 * MySQL
 * Ubuntu 16.04
@@ -64,6 +64,41 @@ To set informations (clouds, database, mistral), run following commands
 $ cd dynamic-overcloud/configuration
 $ vim init.ini
 ```
+
+In [provider] seciton, you configure your own clouds (OpenStack, Amazon AWS)
+
+You can only configure specific clouds (OpenStack or Amazon AWS), if you don't have both clouds
+
+OpenStack_ID: your OpenStack Keystone ID
+
+OpenStack_Password: your Password of Keystone ID
+
+OpenStack_keystone: Keystone Endpoint IP (ex, 192.168.90.10)
+
+
+Amazon_ACCESS_KEY_ID: Amazon Access Key token (Ex.,CDQJJQHYZODEFBC7P62A)
+Amazon_SECRET_ACCESS_KEY: Amazon secrete access Key (Ex., A5qZUguxDG/kJzqjAKaqPNE9KoiXo38Rq8HpqQ3f)
+
+
+
+In [database] seciton, you configure your MySQL IP and Password
+
+MySQL_HOST: MySQL Endpoint IP
+MySQL_PASS: MySQL Password
+
+
+
+In [operator] seciton, you configure your Interface Proxy
+
+Operator_HOST: Interface Proxy IP
+Operator_ID: Box Account Name (To connect remote SSH)
+Operator_PASS: Box Password 
+
+
+
+
+
+
 
 
 
