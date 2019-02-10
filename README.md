@@ -12,7 +12,7 @@ Interface Proxy
 * pipenv
 * Ubuntu 16.04
 
-Cloud Boxes
+Clouds
 * OpenStack (Pike version) / Amazon AWS Clouds
 
 
