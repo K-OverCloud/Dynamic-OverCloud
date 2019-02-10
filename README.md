@@ -1,5 +1,6 @@
 # Dynamic OverCloud
 ## Summary ##
+
 ### Overview ###
 SaaS OverCloud is overlay-based cloud concept for SaaS compatibility over hybrid and multi-site clouds. 
 OverCloud is overlay-based cloud which consists of tower, logical clusters and datalake. 
@@ -16,4 +17,19 @@ This is the first version of the tools and it still being developed/verified.
 * LXD-based Machine Container-based Instaces
 * Workflow-based Graph using OpenStack Mistral
 * Conatiner-based Function Chaining using Docker Compose
+
+
+## Requirement
+* OpenStack / Amazon Clouds
+* OpenStack Mistral (Workflow Engine)
+* Ubuntu 16.04
+
+## Install 
+
+In this step, you should run following commands on Interface Proxy (OverCloud Tower Proxy).
+
+```
+$ git clone http://github.com/k-overcloud/dynamic-overcloud
+$ cd dynamic-overcloud
+```
 
