@@ -8,6 +8,7 @@ Dynamic OverCloud is a specially-arranged razor-thin overlay layer that supports
 Interface Proxy 
 * OpenStack Mistral (Workflow Engine)
 * Python3 
+* MySQL
 * Ubuntu 16.04
 
 Cloud Boxes
@@ -22,4 +23,23 @@ In this step, you should run following commands on Interface Proxy (OverCloud To
 $ git clone http://github.com/k-overcloud/dynamic-overcloud
 $ cd dynamic-overcloud
 ```
+
+If you don't have MySQL, run following  commands
+```
+$ cd installation
+$ vim mysql.sh
+```
+Change "10.10.10.10" in Bind_Address to your IP of Interface Proxy.
+
+
+Change "PASS" in PASSWORD to your MySQL Password 
+
+
+save & exit
+```
+$ ./mysql.sh
+```
+
+
+
 
