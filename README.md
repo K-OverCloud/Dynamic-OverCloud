@@ -100,7 +100,7 @@ Operator_PASS: Box Password
 
 Save & exit
 
-## Execution
+## Running
 To run Dynamic OverCloud API server, run following commands
 
 ```
