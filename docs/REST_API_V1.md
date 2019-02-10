@@ -8,7 +8,7 @@ Dynamic OverCloud exposes a list of RESTful APIs to perform various actions. All
 
 
 ## API Index
-1. [OverCloud Instantiation API](#OverCloud Instantiation API)
+1. [OverCloud Instantiation API](#OverCloud-Instantiation-API)
 2. [OverCloud List API](#OverCloud List API)
 3. [OverCloud Delete API](#OverCloud Delete API)
 
