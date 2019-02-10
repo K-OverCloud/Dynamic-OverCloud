@@ -9,6 +9,7 @@ Interface Proxy
 * OpenStack Mistral
 * Python3 
 * MySQL
+* pipenv
 * Ubuntu 16.04
 
 Cloud Boxes
@@ -53,7 +54,7 @@ Change "10.10.10.10" in HOST to your IP of MySQL HOST
 Change "PASS" in PASS to your MySQL Password 
 
 
-save & exit
+Save & exit
 ```
 $ ./init_db.sh
 ```
@@ -71,9 +72,7 @@ You can only configure specific clouds (OpenStack or Amazon AWS), if you don't h
 
 ```
 OpenStack_ID: your OpenStack Keystone ID
-
 OpenStack_Password: your Password of Keystone ID
-
 OpenStack_keystone: Keystone Endpoint IP (ex, 192.168.90.10)
 
 
@@ -99,7 +98,16 @@ Operator_ID: Box Account Name (To connect remote SSH)
 Operator_PASS: Box Password 
 ```
 
+Save & exit
 
+## Execution
+To run Dynamic OverCloud API server, run following commands
+
+```
+$ cd dynamic-overcloud/api
+$ pipenv install
+$ ./bootstrap.sh
+```
 
 
 
