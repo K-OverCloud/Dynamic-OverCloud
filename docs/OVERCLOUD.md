@@ -1,3 +1,5 @@
+## Dynamic OverCloud Concept and Components
+
 Dynamic OverCloud is a specially-arranged razor-thin overlay layer that supports the open-source leveraged service composition in a cloud-agnostic way. Figure 2(a) illustrates the relationship between Dynamic OverCloud and service layer. Dynamic OverCloud includes several elements to support the MSA-based service composition. Dynamic OverCloud consists of Interface Proxy, Dev+Ops Post, Cloud-native Clusters, Connected DataLake and Visible Fabric. Dynamic OverCloud provides the open-source leveraged service composition when given a containerized microservices pattern that corresponds to the targeted service. Dynamic OverCloud users perform the overall steps of the service composition as placement, stitching and execution based on microservices architecture. Figure 2(b) shows the internal components that make up Dynamic OverCloud, which are described in detail below.
 
 
