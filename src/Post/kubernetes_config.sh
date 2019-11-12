@@ -8,7 +8,7 @@ fi
 # Public IP Address Checking
 if [ -z "$1" ]; then
    echo "No argument. Need Your_Floating_IP"
-   echo "ex) ./kubernetes_config.sh 210.125.84.200"
+   echo "ex) ./kubernetes_config.sh 192.168.100.100"
    exit 1
 fi
 
